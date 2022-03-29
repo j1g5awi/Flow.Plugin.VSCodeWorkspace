@@ -68,7 +68,7 @@ namespace Flow.Plugin.VSCodeWorkspaces.VSCodeHelper
 
                 _systemPath = Environment.GetEnvironmentVariable("PATH") ?? "";
                 var paths = _systemPath.Split(";");
-                paths = paths.Where(x => x.Contains("VS Code")).Distinct().ToArray();
+                paths = paths.Where(x => x.Contains("VS Code") || x.Contains("vscode")).Distinct().ToArray();
                 foreach (var path in paths)
                 {
                     if (Directory.Exists(path))
