@@ -68,7 +68,7 @@ namespace Flow.Plugin.VSCodeWorkspaces.VSCodeHelper
 
                 _systemPath = Environment.GetEnvironmentVariable("PATH") ?? "";
                 var paths = _systemPath.Split(";");
-                paths = paths.Where(x => x.Contains("VS Code") || x.Contains("vscode")).Distinct().ToArray();
+                paths = paths.Where(x => x.Contains("VS Code") || x.ToLower().Contains("vscode")).Distinct().ToArray();
                 foreach (var path in paths)
                 {
                     if (Directory.Exists(path))
@@ -106,6 +106,10 @@ namespace Flow.Plugin.VSCodeWorkspaces.VSCodeHelper
                             if (version != string.Empty)
                             {
                                 instance.AppData = Path.Combine(_userAppDataPath, version);
+                                if (Directory.Exists(Path.Join(iconPath, "data/user-data"))){
+                                    instance.AppData = Path.Join(iconPath, "data/user-data");
+                                }
+
                                 var iconVSCode = Path.Join(iconPath, $"{version}.exe");
 
                                 var bitmapIconVscode = Icon.ExtractAssociatedIcon(iconVSCode)?.ToBitmap();
